@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../includes/header'
-import Footer from '../includes/footer'
+
 import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row'
@@ -24,7 +24,7 @@ class AddNewProductPage extends React.Component {
         return (
             <div>
                 <Header />
-                <Container>
+                <Container className='animate__animated animate__rotateIn'>
                     <Row>
                         <Col></Col>
                         <Col xs={5}>
@@ -39,8 +39,7 @@ class AddNewProductPage extends React.Component {
                             </Col>
                             <Col></Col>
                     </Row>
-                </Container>
-                <Footer />
+                </Container>                
             </div>
         )
     }

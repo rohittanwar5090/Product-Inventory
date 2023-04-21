@@ -28,4 +28,14 @@ export default class UserActions {
             actionType: UserActionTypes.SIGNOUT_USER
         })
     }
+    static updateUserMethod(user) {
+        console.log(user);
+        let updateUser = UserApi.updateUser(user)
+        console.log("Dispatching Update User ...")
+        console.log("updateUser =>" , updateUser);
+        Dispatcher.dispatch({
+            actionType: UserActionTypes.UPDATE_USER,
+            product: updateUser
+        })
+    }
 }

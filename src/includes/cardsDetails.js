@@ -21,16 +21,17 @@ class CardsDetails extends React.Component {
       <div>
             <Container className="mt-5"> 
                 <Row>
+                    <Col></Col>
                     <Col>
-                    </Col>
-                    <Col>
-                        <Card style={{ width: '30rem' }}>
-                            <Card.Img variant="top" src={`https://picsum.photos/seed/${this.props.match.params.id}/478/185`} />
+                        <Card className="mt-5 animate__animated animate__rubberBand" style={{ width: '30rem' }}>
+                            <Card.Img variant="top" src={`https://robohash.org/${this.props.match.params.id}/475/160`} />
                             <Card.Body>
                               <Card.Title><u>{this.props.product.productName}</u></Card.Title>
                               <Card.Text>
                               <b>Know More About this Product:</b> <br />
                               {this.props.product.productDescription}
+                              
+
                               </Card.Text>
                             </Card.Body>
                             <ListGroup className="list-group-flush">
@@ -43,16 +44,17 @@ class CardsDetails extends React.Component {
                               <Card.Link 
                                 href="#" 
                                 onClick={()=>{
-                                  alert("Are you sure to delete?")
-                                  ProductApi.deleteProduct(this.props.match.params.id, ()=>{
-                                    this.props.history.push('/viewProducts')
-                                  })
+                                  if(window.confirm("Are you sure to delete?")){
+                                    ProductApi.deleteProduct(this.props.match.params.id, ()=>{
+                                      this.props.history.push('/viewProducts')
+                                    })
+                                  }
+                                  else{}
                                 }}>Delete</Card.Link>
                             </Card.Body>
                             </Card>
                     </Col>
-                    <Col>
-                    </Col>
+                <Col></Col>
                 </Row>
             </Container>
         </div>

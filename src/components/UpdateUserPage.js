@@ -8,32 +8,41 @@ import EditProductForm from '../includes/editProductForm'
 import ProductActions from '../actions/ProductActions'
 import { withRouter } from 'react-router-dom'
 import ProductApi from '../data/ProductApi'
+import UserActions from '../actions/UserActions';
+import UserApi from '../data/UserApi';
+import UserStore from '../stores/UserStore';
+import UpdateUserForm from '../includes/UpdateUserForm';
 
-class EditProductPage extends React.Component {
+class UpdateUserPage extends React.Component {
     constructor(props) {
         super(props);
         this.updateProduct = this.updateProduct.bind(this);
         this.state={
-            product: undefined
+            user: undefined
         }
     }
 
-    componentDidMount() {
-        const productId = this.props.match.params.id
-        ProductApi.getProductById(productId, (product)=>{
-            this.setState({ product })
-            console.log(product)
+    componentDidMount() {    
+        const currentUser = UserStore.getCurrentUser()    
+        const uid = this.props.match.params.id      
+        console.log("uuid",uid);          
+        UserApi.getUserById(currentUser, (user)=>{            
+            this.setState({ user })            
         })
 
     }
   
-    updateProduct(product) {
-          ProductActions.updateProductMethod(product);
-          alert("Product Updated Successfully!")
-          this.props.history.push('/viewProducts')
+    
+    updateProduct(email) {
+        
+        // {id: this.props.user.id, ...fields}
+          UserActions.updateUserMethod(email);
+          alert("User Updated Successfully!")
+          this.props.history.push('/')
           window.location.reload()
     }
     render() {
+        console.log(this.state.user);
         return (
             <div>
                 <Header />
@@ -45,17 +54,17 @@ class EditProductPage extends React.Component {
                                 <Card.Body>
                                   <Card.Title>Edit Product</Card.Title>
                                   <Card.Text>
-                                        <EditProductForm onUpdate={this.updateProduct} product={this.state.product}/> 
+                                        <UpdateUserForm onUpdate={this.updateProduct} user={this.state.user}/> 
                                     </Card.Text>
                                 </Card.Body>
                                 </Card>
                             </Col>
                             <Col></Col>
                     </Row>
-                </Container>                
+                </Container>            
             </div>
         )
     }
 }
 
-export default withRouter(EditProductPage) 
+export default withRouter(UpdateUserPage) 

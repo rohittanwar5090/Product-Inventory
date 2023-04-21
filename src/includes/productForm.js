@@ -36,7 +36,7 @@ class AddNewProductForm extends React.Component {
                 render={({ errors, dirty, touched }) => {
                     window.onbeforeunload = dirty ? e => e : null
                     return (
-                        <Form>
+                        <Form >
                         <div className="form-group">
                             <label htmlFor="productName">Product Name</label>
                             <Field name="productName" type="text" className={'form-control' + (errors.productName && touched.productName ? ' is-invalid' : '')} />
@@ -54,7 +54,7 @@ class AddNewProductForm extends React.Component {
                         </div>
                         <div className="form-group">
                             <label htmlFor="price">Price</label>
-                            <Field name="price" type="text" className={'form-control' + (errors.price && touched.price ? ' is-invalid' : '')} />
+                            <Field name="price" type="number" className={'form-control' + (errors.price && touched.price ? ' is-invalid' : '')} />
                             <ErrorMessage name="price" component="div" className="invalid-feedback" />
                         </div>
                         <div className="form-group">
@@ -63,14 +63,13 @@ class AddNewProductForm extends React.Component {
                             <ErrorMessage name="quantity" component="div" className="invalid-feedback" />
                         </div>
                         <div className="form-group">
-                            <button type="submit" className="btn btn-primary mr-2">Add Product</button>
+                            <button type="submit" className="btn btn-danger mr-2">Add Product</button>
                             <button type="reset" className="btn btn-secondary">Reset</button>
                         </div>
                         
                     </Form>
                     )
-                }      
-                }  
+                }}  
             />
         )
     }

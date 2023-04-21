@@ -7,6 +7,7 @@ import ProductStore from '../stores/ProductStore'
 import InitializeActions from '../actions/InitializeProductActions'
 import Navbar from 'react-bootstrap/Navbar'
 
+
 export default class AllProductsPage extends React.Component {
     constructor(props) {
       super(props)
@@ -33,15 +34,8 @@ export default class AllProductsPage extends React.Component {
     render() {
         return (
             <div>
-                <Header />
-                <CardsView products={this.state.products} />
-                <footer>
-                    <Navbar expand="lg" variant="dark" bg="dark" className="mt-5 mb-0">
-                        <Container>
-                            <Navbar.Brand href="#">A Project made using React JS by <a href="https://www.linkedin.com/in/swarajlaha/">Swaraj Laha</a></Navbar.Brand>
-                        </Container>
-                    </Navbar>
-                </footer>
+                {this.props.bool ? null  : <Header/>}
+                <CardsView products={this.state.products} bool={this.props.bool} />            
             </div>
         );
     }

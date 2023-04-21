@@ -40,10 +40,12 @@ class RegistrationForm extends React.Component {
                     /*alert('SUCCESS!! :-)\n\n' + JSON.stringify(fields, null, 6))*/
                     this.props.onSave(fields)
                 }}
-                render={({ errors, status, touched }) => (
-                    <Form>
+                render={({ errors, dirty, touched }) => {
+                    window.onbeforeunload = dirty ? e => e : null
+                    return (
+                        <Form>
                         <div className="form-group">
-                            <label htmlFor="firstName">First Name</label>
+                            <label data-testid='FirstName' htmlFor="firstName">First Name</label>
                             <Field name="firstName" type="text" className={'form-control' + (errors.firstName && touched.firstName ? ' is-invalid' : '')} />
                             <ErrorMessage name="firstName" component="div" className="invalid-feedback" />
                         </div>
@@ -64,7 +66,7 @@ class RegistrationForm extends React.Component {
                         </div>
                         <div className="form-group">
                             <label htmlFor="mobileNumber">Mobile Number</label>
-                            <Field name="mobileNumber" type="number" className={'form-control' + (errors.mobileNumber && touched.mobileNumber ? ' is-invalid' : '')} />
+                            <Field name="mobileNumber"  type="number" pattern="^[0-9]{3,45}$"  className={'form-control' + (errors.mobileNumber && touched.mobileNumber ? ' is-invalid' : '')} />
                             <ErrorMessage name="mobileNumber" component="div" className="invalid-feedback" />
                         </div>
                         <div className="form-group">
@@ -73,11 +75,50 @@ class RegistrationForm extends React.Component {
                             <ErrorMessage name="location" component="div" className="invalid-feedback" />
                         </div>
                         <div className="form-group">
-                            <button type="submit" className="btn btn-primary mr-2">Register</button>
+                            <button type="submit" className="btn btn-danger mr-2">Register</button>
                             <button type="reset" className="btn btn-secondary">Reset</button>
                         </div>
                     </Form>
-                )}
+                    )
+                }}
+                // render={({ errors, status, touched }) => (
+                    // <Form>
+                    //     <div className="form-group">
+                    //         <label data-testid='FirstName' htmlFor="firstName">First Name</label>
+                    //         <Field name="firstName" type="text" className={'form-control' + (errors.firstName && touched.firstName ? ' is-invalid' : '')} />
+                    //         <ErrorMessage name="firstName" component="div" className="invalid-feedback" />
+                    //     </div>
+                    //     <div className="form-group">
+                    //         <label htmlFor="lastName">Last Name</label>
+                    //         <Field name="lastName" type="text" className={'form-control' + (errors.lastName && touched.lastName ? ' is-invalid' : '')} />
+                    //         <ErrorMessage name="lastName" component="div" className="invalid-feedback" />
+                    //     </div>
+                    //     <div className="form-group">
+                    //         <label htmlFor="email">Email</label>
+                    //         <Field name="email" type="text" className={'form-control' + (errors.email && touched.email ? ' is-invalid' : '')} />
+                    //         <ErrorMessage name="email" component="div" className="invalid-feedback" />
+                    //     </div>
+                    //     <div className="form-group">
+                    //         <label htmlFor="password">Password</label>
+                    //         <Field name="password" type="password" className={'form-control' + (errors.password && touched.password ? ' is-invalid' : '')} />
+                    //         <ErrorMessage name="password" component="div" className="invalid-feedback" />
+                    //     </div>
+                    //     <div className="form-group">
+                    //         <label htmlFor="mobileNumber">Mobile Number</label>
+                    //         <Field name="mobileNumber"  type="number" pattern="^[0-9]{3,45}$"  className={'form-control' + (errors.mobileNumber && touched.mobileNumber ? ' is-invalid' : '')} />
+                    //         <ErrorMessage name="mobileNumber" component="div" className="invalid-feedback" />
+                    //     </div>
+                    //     <div className="form-group">
+                    //         <label htmlFor="location">Location</label>
+                    //         <Field name="location" type="text" className={'form-control' + (errors.location && touched.location ? ' is-invalid' : '')} />
+                    //         <ErrorMessage name="location" component="div" className="invalid-feedback" />
+                    //     </div>
+                    //     <div className="form-group">
+                    //         <button type="submit" className="btn btn-danger mr-2">Register</button>
+                    //         <button type="reset" className="btn btn-secondary">Reset</button>
+                    //     </div>
+                    // </Form>
+                // )}
             />
         )
     }

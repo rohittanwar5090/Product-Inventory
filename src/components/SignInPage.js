@@ -4,14 +4,14 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import Header from '../includes/header'
-import Footer from '../includes/footer'
+
 import SignInForm from '../includes/signInForm'
 
 const SignInPage = () => {
     return(
         <div>
             <Header />
-            <Container className="mt-5 bt-5">
+            <Container className="mt-5 bt-5 animate__animated animate__lightSpeedInRight">
                 <Row>
                   <Col></Col>
                   <Col xs={5}>
@@ -26,8 +26,7 @@ const SignInPage = () => {
                   </Col>
                   <Col></Col>
                 </Row>
-            </Container>
-            <Footer />
+            </Container>            
         </div>
     )
 }

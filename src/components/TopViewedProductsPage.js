@@ -1,69 +1,118 @@
-import React from 'react';
-import {Bar} from 'react-chartjs-2';
-import Header from '../includes/header'
-import Footer from '../includes/footer'
+import React from 'react'
+import { Bar, Doughnut, Line, Radar } from 'react-chartjs-2';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
-import Card from 'react-bootstrap/Card'
 import ProductApi from '../data/ProductApi';
 import _ from 'lodash'
+import { useState } from 'react';
+import { useEffect } from 'react';
 
-export default class TopViewedProductsPage extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            data: {}
-        }
-    }
 
-    componentDidMount() {
-        ProductApi.getProductViews(productViews => {
-            const grouped = _(productViews).groupBy('productName').value()
-            let labelArray = Object.keys(grouped)
-            const data = {
-                labels : labelArray,
-                datasets: [
-                  {
-                    label: 'Product Views',
-                    backgroundColor: 'rgba(75,192,192,1)',
-                    borderColor: 'rgba(0,0,0,1)',
-                    borderWidth: 2,
-                    data: Object.keys(grouped).map(key => grouped[key].length)
-                  }
-                ]
-            }
-            this.setState({data})
-        })
-    }
+export default function TopViewedProductsPage() {   
+    const [user, setUser] = useState({})
     
-    render() {
-        return (
-            <div>
-                <Container className="mt-5">
-                    <Row>
-                        <Col md={{ span: 6, offset: 3 }}>
-                            <Card body>
-                                <Bar
-                                    data={this.state.data}
-                                    options={{
-                                      title:{
-                                        display:true,
-                                        text:'Top Viewed Products',
-                                        fontSize:20
-                                      },
-                                      legend:{
-                                        display:true,
-                                        position:'right'
-                                      }
-                                    }}
-                                />
-                            </Card>
-                        </Col>
-                    </Row>
-                </Container>
-                <Footer />
-            </div>
-        );
-    }
+    useEffect(() => {        
+        ProductApi.getProductViews(productViews => {
+            console.log(productViews);
+            const grouped = _(productViews).groupBy('productName').value()
+            // console.log(Object.keys(grouped).map(e => e));
+            // console.log(grouped);
+            let labelArray = Object.keys(grouped)
+            let Value = Object.values(grouped)
+            console.log(labelArray);
+            console.log(Value);
+            const dataValue = {
+                labels: labelArray,
+                datasets: [
+                    {
+                        label: 'Product Views',
+                        backgroundColor: '#F7A4A4',
+                        borderColor: '#EEEEEE',
+                        borderWidth: 2,
+                        data: Object.keys(grouped).map(key => grouped[key].length)
+                        // data : Value
+                        // labelsData : 
+                        // data : Object.values(grouped).map(e =>console.log(e))
+                    }
+                ]
+            }            
+            setUser( dataValue)            
+        })
+    }, [])
+
+    return (        
+        <div>                        
+            <Container className="mt-5">
+                <Row>
+                    <Col className="animate__animated animate__slideInLeft">
+                        <Bar                            
+                            data={user}
+                            options={{
+                                title: {
+                                    display: true,
+                                    text: 'Top Viewed Products',
+                                    fontSize: 20
+                                },
+                                legend: {
+                                    display: true,
+                                    position: 'left'
+                                }
+                            }}
+                        />
+                    </Col>
+                    <Col  className="animate__animated animate__slideInLeft">
+                        <Doughnut
+                            data={user}
+                            options={{
+                                title: {
+                                    display: true,
+                                    text: 'Top Viewed Products',
+                                    fontSize: 20
+                                },
+                                legend: {
+                                    display: true,
+                                    position: 'left'
+                                }
+                            }}
+                        />
+                    </Col>
+                </Row>
+                <Row className='mt-5'>
+                    <Col  className="animate__animated animate__slideInDown">
+                        <Line
+                            data={user}
+                            options={{
+                                title: {
+                                    display: true,
+                                    text: 'Top Viewed Products',
+                                    fontSize: 20
+                                },
+                                legend: {
+                                    display: true,
+                                    position: 'left'
+                                }
+                            }}
+                        />
+                    </Col>
+                    <Col  className="animate__animated animate__slideInUp">
+                        <Radar
+                            data={user}
+                            options={{
+                                title: {
+                                    display: true,
+                                    text: 'Top Viewed Products',
+                                    fontSize: 20
+                                },
+                                legend: {
+                                    display: true,
+                                    position: 'left'
+                                }
+                            }}
+                        />
+                    </Col>
+                </Row>
+            </Container>
+        </div>
+    )
 }

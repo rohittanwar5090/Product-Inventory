@@ -35,4 +35,9 @@ export default class UserApi {
         .then(response => cb(response.data[0]))
 		.catch(error => { throw error })
 	}
+	static updateUser(product) {
+		
+		console.log("from api => " , product);
+		axios.put(`http://localhost:3001/users/${product.id}`, product)
+	}
 }

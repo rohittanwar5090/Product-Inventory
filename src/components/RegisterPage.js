@@ -6,7 +6,6 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import RegistrationForm from '../includes/registrationForm'
 import UserActions from '../actions/UserActions'
-import Navbar from 'react-bootstrap/Navbar'
 
 class RegisterPage extends React.Component {
     constructor(props) {
@@ -23,13 +22,13 @@ class RegisterPage extends React.Component {
         return (
             <div>
                 <Header />
-                <Container>
+                <Container  className="animate__animated animate__zoomInDown" >
                     <Row>
                         <Col></Col>
                         <Col xs={5}>
                             <Card className="text-center mt-5">
                                 <Card.Body>
-                                  <Card.Title>Register</Card.Title>
+                                  <Card.Title data-testid='Register'>Register</Card.Title>
                                   <Card.Text>
                                         <RegistrationForm onSave={this.saveUser} /> 
                                     </Card.Text>
@@ -38,14 +37,7 @@ class RegisterPage extends React.Component {
                         </Col>
                         <Col></Col>
                     </Row>
-                </Container>
-                <footer>
-                    <Navbar expand="lg" variant="dark" bg="dark" className="mt-5 mb-0">
-                        <Container>
-                            <Navbar.Brand href="#">A Project made using React JS by <a href="https://www.linkedin.com/in/swarajlaha/">Swaraj Laha</a></Navbar.Brand>
-                        </Container>
-                    </Navbar>
-                </footer>
+                </Container>        
             </div>
         )
     }

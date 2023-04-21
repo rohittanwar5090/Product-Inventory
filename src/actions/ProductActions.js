@@ -23,7 +23,9 @@ export default class ProductActions {
     }
 
     static updateProductMethod(product) {
+        console.log(product);
         let updatedProduct = ProductApi.updateProduct(product)
+        console.log("updatedProduct =>" , updatedProduct);
         console.log("Dispatching Update Product ...")
         Dispatcher.dispatch({
             actionType: ProductActionTypes.UPDATE_PRODUCT,

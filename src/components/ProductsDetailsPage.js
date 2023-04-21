@@ -26,7 +26,6 @@ class ProductsDetailsPage extends React.Component {
         const productId = this.props.match.params.id
         ProductApi.getProductById(productId, (product)=>{
             this.setState({ product })
-            console.log(product)
         })
     }
 
@@ -34,27 +33,13 @@ class ProductsDetailsPage extends React.Component {
         return (
             <div>
                 <Header />
-                <Container className="mt-5">
+                <Container className="animate__animated animate__rotateIn">
                     <Row>
-                      <Col></Col>
-                      <Col>
-                            <div className="mb-2">
-                                <Button variant="success" size="lg" href="/addNewProduct">
-                                  Add New Product
-                                </Button>
-                            </div>
-                      </Col>
+                      <Col></Col>                   
                       <Col></Col>
                     </Row>
                 </Container>
-                <CardsDetails product={this.state.product}/>
-                <footer>
-                    <Navbar expand="lg" variant="dark" bg="dark" className="mt-5 mb-0">
-                        <Container>
-                            <Navbar.Brand href="#">A Project made using React JS by <a href="https://www.linkedin.com/in/swarajlaha/">Swaraj Laha</a></Navbar.Brand>
-                        </Container>
-                    </Navbar>
-                </footer>
+                <CardsDetails product={this.state.product}/>               
             </div>
         )
     }

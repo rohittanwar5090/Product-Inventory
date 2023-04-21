@@ -1,32 +1,35 @@
-import React from 'react';
-import { mount,shallow} from 'enzyme';
+import React from 'react'
+import {fireEvent, render ,screen} from '@testing-library/react'
 import AboutPage from './AboutPage'
-import Header from '../includes/header'
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
+import '@testing-library/jest-dom'
 
-describe('About Page Snapshot', () => {
-    let mountWrapper;
-    beforeEach(() => {
-        mountWrapper = mount(<AboutPage />);
-    });
+test('full app rendering/', async () => {
+    render(<AboutPage />, {wrapper: BrowserRouter})  
+    expect(screen.getByText(/Welcome to the Product Inventory System/i)).toBeInTheDocument()
 
-    test('renders correctly', () => {
-        expect(mountWrapper).toMatchSnapshot()
-    })  
-});
+  })
+  
 
-describe('About Page rendering of elements', () => {
-
-    let shallowWrapper
-
-    beforeEach(() => {
-        shallowWrapper = shallow(<AboutPage/>);
-    });
-
-    it('renders correct heading for About', () => {
-        expect(shallowWrapper.find("h1").render().text()).toEqual("About")
-    })
-
-    it('renders one Header React component', () => {
-        expect(shallowWrapper.find(Header).length).toEqual(1);
-    })
-})
+test("carousel", () => {
+    render(
+      <MemoryRouter>
+        <AboutPage />
+      </MemoryRouter>
+    );       
+    const carousel = screen.getByTestId('carousel')
+    expect(carousel).toBeInTheDocument();        
+  });
+   
+  test('loads items eventually',  () => {
+    render( <MemoryRouter>
+        <AboutPage />
+      </MemoryRouter>
+      );    
+    fireEvent.click(screen.getByRole('signin'))
+    const items =  screen.getByText(/Sign In/)
+    expect(items).toBeInTheDocument()
+  })
+  
+  
+  

@@ -1,21 +1,21 @@
 import React from 'react'
-import { shallow } from 'enzyme'
-import EditProductsPage from './EditProductsPage'
-import EditProductForm from '../includes/editProductForm'
+import { render ,screen} from '@testing-library/react'
+import EditProductPage from './EditProductPage'
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
+import '@testing-library/jest-dom'
 
-describe('Edit Product Product Page rendering of elements', () => {
+test('full app rendering/navigating',  () => {
+    render(<EditProductPage />, {wrapper: BrowserRouter})      
+    expect(screen.getByText(/Edit Product/i)).toBeInTheDocument()
+  })
 
-    let shallowWrapper
+  test('loads child items ',  () => {
+    render( <MemoryRouter>
+        <EditProductPage />
+      </MemoryRouter>
+      );
+    const items =  screen.getByText(/Sign In/)
+    expect(items).toBeInTheDocument()
+  })
 
-    beforeEach(() => {
-        shallowWrapper = shallow(<EditProductsPage/>);
-    });
 
-    it('renders correct heading for Edit Product Page', () => {
-        expect(shallowWrapper.find("h1").render().text()).toEqual("Products List")
-    })
-
-    it('renders one EditProductForm React component', () => {
-        expect(shallowWrapper.find(EditProductForm).length).toEqual(1);
-    })
-})

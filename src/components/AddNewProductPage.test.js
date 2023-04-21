@@ -1,33 +1,26 @@
 import React from 'react'
-import { mount, shallow } from 'enzyme'
-import AddNewProduct from './AddNewProductPage'
-import AddProductForm from '../includes/productForm'
+import { render ,screen} from '@testing-library/react'
+import AddNewProductPage from './AddNewProductPage'
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
+import '@testing-library/jest-dom'
 
-describe('Add New Product Page Snapshot', () => {
 
-    let mountWrapper
-    beforeEach(() => {
-        mountWrapper = mount(<AddNewProduct/>);
-    });
+test('full app rendering/navigating', async () => {
+    render(<AddNewProductPage />, {wrapper: BrowserRouter})      
+    expect(screen.getByText(/Add New Product/i)).toBeInTheDocument()
+  })
 
-    test('renders correctly', () => {
-        expect(mountWrapper).toMatchSnapshot();
-    });
-})
 
-describe('Add New Product Page rendering of elements', () => {
 
-    let shallowWrapper
+test('form', async () => {
+    render(<AddNewProductPage />, {wrapper: BrowserRouter})  
 
-    beforeEach(() => {
-        shallowWrapper = shallow(<AddProductForm/>);
-    });
+    expect(screen.getByText(/Product Name/i)).toBeInTheDocument()
+  })
 
-    it('renders correct heading for About', () => {
-        expect(shallowWrapper.find("h1").render().text()).toEqual("Add New Product")
-    })
 
-    it('renders one AddProductForm React component', () => {
-        expect(shallowWrapper.find(AddProductForm).length).toEqual(1);
-    })
-})
+test('form 2', async () => {
+    render(<AddNewProductPage />, {wrapper: BrowserRouter})  
+
+    expect(screen.getByText(/Product Description/i)).toBeInTheDocument()
+  })
